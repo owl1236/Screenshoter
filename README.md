@@ -15,14 +15,15 @@ Requirements: Visual Studio with the C++ toolset (`cl.exe`).
 From the **Developer Command Prompt for VS** (so `cl` is on PATH):
 
 ```bat
-cl /std:c++17 /EHsc /O2 /W4 /FeScreenshoter.exe screenshoter.cpp stb_image_write.h /link /SUBSYSTEM:WINDOWS
+cl /std:c++17 /EHsc screenshoter.cpp /link gdi32.lib user32.lib kernel32.lib shell32.lib ole32.lib /subsystem:windows /out:screenshoter.exe
 ```
 
-This produces a single `Screenshoter.exe` in the current directory.
+This produces a single `screenshoter.exe` in the current directory.
 
 Flag notes:
 - `/std:c++17` — `std::filesystem` requires C++17
 - `/EHsc` — standard exception handling (used by `std::filesystem`)
-- `/O2` — optimization
-- `/SUBSYSTEM:WINDOWS` — GUI subsystem so the console window stays hidden
-- Libraries (`gdi32`, `user32`, `shell32`, `ole32`, …) are linked automatically via `#pragma comment(lib, ...)` in the source
+- `/subsystem:windows` — GUI subsystem so the console window stays hidden
+- `/out:screenshoter.exe` — output filename
+- `gdi32.lib user32.lib kernel32.lib shell32.lib ole32.lib` — Win32 libraries the app links against
+- `stb_image_write.h` is **not** listed on the command line — it is pulled in by `#include "stb_image_write.h"` in the source. Passing a `.h` to `cl` treats it as a source file (warning D9024) and breaks the `W`-suffixed Win32 API calls.

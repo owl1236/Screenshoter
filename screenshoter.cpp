@@ -234,7 +234,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
     wc.hInstance = hInstance;
     wc.lpfnWndProc = WndProc;
     wc.lpszClassName = CLASS_NAME;
-    wc.hIcon = LoadIconW(nullptr, IDI_APPLICATION);
+    wc.hIcon = LoadIconW(nullptr, MAKEINTRESOURCEW(IDI_APPLICATION));
     RegisterClassW(&wc);
 
     g_hwnd = CreateWindowExW(0, CLASS_NAME, L"Screenshoter", 0,
@@ -252,7 +252,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
     g_nid.uID = TRAY_ICON_ID;
     g_nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
     g_nid.uCallbackMessage = WM_TRAYICON;
-    g_nid.hIcon = LoadIconW(nullptr, IDI_APPLICATION);
+    g_nid.hIcon = LoadIconW(nullptr, MAKEINTRESOURCEW(IDI_APPLICATION));
     wcscpy_s(g_nid.szTip, 128, L"Screenshoter");
 
     Shell_NotifyIconW(NIM_ADD, &g_nid);
