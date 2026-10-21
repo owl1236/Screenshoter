@@ -26,4 +26,3 @@ Flag notes:
 - `/subsystem:windows` — GUI subsystem so the console window stays hidden
 - `/out:screenshoter.exe` — output filename
 - `gdi32.lib user32.lib kernel32.lib shell32.lib ole32.lib` — Win32 libraries the app links against
-- `stb_image_write.h` is **not** listed on the command line — it is pulled in by `#include "stb_image_write.h"` in the source. Passing a `.h` to `cl` treats it as a source file (warning D9024) and breaks the `W`-suffixed Win32 API calls.
